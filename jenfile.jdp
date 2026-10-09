@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('CODE') {
+        stage('CLONE') {
             steps {
-                echo 'Code is successfull'
+             git branch: 'main', url: 'https://github.com/BhaveshJ18/Jenkins.git'
+                echo 'Clone is successfull'
             }
         }
         stage('BUILD') {
