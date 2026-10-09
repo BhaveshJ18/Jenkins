@@ -17,5 +17,10 @@ pipeline {
                 echo 'Test is successfull '
             }
          }
-    }
+        stage('DEPLOY') {
+            steps {
+                echo 'Dep is successfull'
+            }
+         }
+     }
 }
