@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('CLONE') {
             steps {
-             git branch: 'main', url: 'https://github.com/BhaveshJ18/Jenkins.git'
+             git branch: 'main',
+                    url: 'https://github.com/vishuanjali/EasyCRUD.git'
                 echo 'Clone is successfull'
             }
         }
