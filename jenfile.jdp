@@ -2,27 +2,45 @@ pipeline {
     agent any
 
     stages {
-        stage('CLONE') {
+        stage('Code Clone') {
             steps {
-             git branch: 'main',
+                git branch: 'main',
                     url: 'https://github.com/vishuanjali/EasyCRUD.git'
-                echo 'Clone is successfull'
+
+                echo 'Code cloned successfully'
             }
         }
-        stage('BUILD') {
+
+        stage('Build') {
             steps {
-                echo 'Build is Building'
+                sh '''
+                    cd backend
+                    mvn clean package -DskipTests
+                '''
             }
         }
-        stage('TEST') {
+
+        stage('Test') {
             steps {
-                echo 'Test is successfull '
+                sh '''
+                    cd backend
+                    mvn test
+                '''
+                echo 'Tests completed successfully'
             }
-         }
-        stage('DEPLOY') {
+        }
+        
+        stage('Deploy') {
             steps {
-                echo 'Dep is successfull'
+                 sh 'aws s3 cp backend/target/student-registration-backend-0.0.1-SNAPSHOT.jar s3://easy-cccrud-2028/'
+                echo 'application deploy successfull'
             }
-         }
-     }
+        }
+
+        stage('Monitor') {
+            steps {
+                echo 'Monitoring stage completed'
+            }
+        }
+    }
 }
