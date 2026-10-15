@@ -52,7 +52,7 @@ pipeline {
 
         stage('Monitor') {
             steps {
-                echo 'Monitoring stage completed......FINALLY WORK IS DONE..GG'
+                echo 'Monitoring stage completed..'
             }
         }
     }
