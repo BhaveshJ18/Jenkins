@@ -39,8 +39,6 @@ pipeline {
                     mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.1.0.4751:sonar \
                   -Dsonar.projectKey=student-registration-backend \
                   -Dsonar.projectName=student-registration-backend
-                  -Dsonar.host.url=http://34.240.192.184:9000 \
-                  -Dsonar.token="$SONAR_TOKEN"
                     '''
                 }
             }
