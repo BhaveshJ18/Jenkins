@@ -26,9 +26,16 @@ pipeline {
    stage('BACKEND-CONT') {
             steps {
                 sh '''
-                     docker run -d -p 8081:8081 --name backend --network=app backend:latest
+                     docker run -d -p 8081:8081 --name backend --network=net1 backend:latest
                                 '''
          }
       }
+stage('FRONTEND-CONT') {
+            steps {
+               sh '''
+                     docker run -d -p 80:80 --name frontend --network=net1 frontend:latest
+                                '''
+         }
+       }
    }
 }
