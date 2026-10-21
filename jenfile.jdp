@@ -25,7 +25,8 @@ pipeline {
       }
    stage('BACKEND-CONT') {
             steps {
-                sh '''
+                sh '''docker stop backend
+                   docker rm backend
                      docker run -d -p 8081:8081 --name backend --network=net1 backend:latest
                                 '''
          }
