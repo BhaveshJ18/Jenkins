@@ -32,7 +32,8 @@ pipeline {
       }
 stage('FRONTEND-CONT') {
             steps {
-               sh '''
+               sh '''docker stop fronted
+                   docker rm frontend
                      docker run -d -p 80:80 --name frontend --network=net1 frontend:latest
                                 '''
          }
