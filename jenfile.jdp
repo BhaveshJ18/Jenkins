@@ -11,6 +11,17 @@ pipeline {
                 echo 'Code cloned successfully'
             }
         }
-
+    stage('backend-image-build') {
+            steps {
+               sh '''cd backend 
+                docker build -t backend:latest .'''
+            }
+        }
+    stage ('frontend-image-build') {
+            steps {
+            sh '''cd frontend
+            docker build -t frontend:latest .'''
+          }  
+      }
     }
 }
