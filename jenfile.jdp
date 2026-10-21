@@ -23,10 +23,9 @@ pipeline {
             docker build -t frontend:latest .'''
           }  
       }
-     stage (Backend-Cont') {
-           steps {
-           sh '''docker run -d --name backend -p 8081:8081 backend:latest'''
+     sh '''docker run -d -p 8081:8081 --name backend --network=app backend:latest
+                                '''
          }
       }
-  }
+   }
 }
