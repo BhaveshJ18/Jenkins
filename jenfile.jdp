@@ -1,29 +1,43 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.9-eclipse-temurin-17'
-            label 'docker-agent'
-        }
-    }
+    agent any
 
     stages {
-        stage('Check Java') {
+        stage('Code Clone') {
             steps {
-                sh 'java -version'
-            }
-        }
+                git branch: 'main',
+                    url: 'https://github.com/BhaveshJ18/student-3TIER.git'
 
-        stage('Check Maven') {
-            steps {
-                sh 'mvn -version'
+                echo 'Code cloned successfully'
             }
         }
-
-        stage('Check Workspace') {
+    stage('backend-image-build') {
             steps {
-                sh 'pwd'
-                sh 'ls -la'
+               sh '''cd backend 
+                docker build -t backend:latest .'''
             }
         }
-    }
+    stage ('frontend-image-build') {
+            steps {
+            sh '''cd frontend
+            docker build -t frontend:latest .'''
+          }  
+      }
+   stage('BACKEND-CONT') {
+            steps {
+                sh '''docker stop backend
+                   docker rm backend
+                     docker run -d -p 8081:8081 --name backend --network=net1 backend:latest
+                                '''
+         }
+      }
+stage('FRONTEND-CONT') {
+            steps {
+               sh '''docker stop frontend
+                   docker rm frontend
+                     docker run -d -p 80:80 --name frontend --network=net1 frontend:latest
+                                '''
+                echo 'APP Build-Deploy successfull'
+         }
+       }
+   }
 }
